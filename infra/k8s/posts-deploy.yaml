@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: posts-deployment
+spec:
+  replicas: 1 # number of pods
+  selector: # select the pods to apply the deployment to
+    matchLabels:
+      app: posts # label of the pod
+  template: # define the pods that will be created by this deployment
+    metadata: # metadata of the pod
+      labels: # labels of the pod (used by the selector)
+        app: posts # label of the pod (used by the selector)
+    spec: # specification of the pod
+        containers: # containers of the pod
+            - name: posts # name of the container
+              image: danielmoln/posts # image of the container
