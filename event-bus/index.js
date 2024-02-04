@@ -10,16 +10,22 @@ app.use(bodyParser.json());
 const events = [];
 
 app.post('/events', (req, res) =>{
-    const event = req.body;
+  const event = req.body;
 
-    events.push(event);
+  events.push(event);
 
-    axios.post('http://localhost:4000/events', event).catch((e) => console.log(e)); // post service
-    axios.post('http://localhost:4001/events', event).catch((e) => console.log(e)); // comments service
-    axios.post('http://localhost:4002/events', event).catch((e) => console.log(e)); // query service
-    axios.post('http://localhost:4003/events', event).catch((e) => console.log(e)); // moderation service
+  axios.post("http://post-srv:4000/events", event).catch((e) => console.log(e)); // post service
+  axios
+    .post("http://localhost:4001/events", event)
+    .catch((e) => console.log(e)); // comments service
+  axios
+    .post("http://localhost:4002/events", event)
+    .catch((e) => console.log(e)); // query service
+  axios
+    .post("http://localhost:4003/events", event)
+    .catch((e) => console.log(e)); // moderation service
 
-    res.send({ status: 'Ok' })
+  res.send({ status: "Ok" });
 });
 
 app.get('/events', (req, res) => {

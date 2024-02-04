@@ -1,10 +1,12 @@
 FROM node:alpine
 
+# Add the following lines (Avoid create-react-app issues)
+ENV CI=true
+ENV WDS_SOCKET_PORT=0
+
 WORKDIR /app
-COPY package.json /app
-
+COPY package.json ./
 RUN npm install
-
-COPY . /app
+COPY ./ ./
 
 CMD ["npm", "start"]

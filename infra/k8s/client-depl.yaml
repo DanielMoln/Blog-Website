@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: client-deployment
+spec:
+   replicas: 1
+   selector:
+      matchLabels:
+         app: clients
+   template:
+      metadata:
+         labels:
+            app: clients
+      spec:
+         containers:
+            - name: clients
+              image: danielmoln/react
+---
+apiVersion: v1
+kind: Service
+metadata:
+   name: client-srv
+spec:
+   selector:
+      app: clients
+   ports:
+      - name: clients
+        protocol: TCP
+        port: 4001
+        targetPort: 4001
+---
+apiVersion: v1
+kind: Service
+metadata:
+   name: client-node-service
+spec:
+   type: NodePort
+   ports:
+      - port: 3000
+        targetPort: 3000
+        nodePort: 32005
+   selector:
+      app: clients
